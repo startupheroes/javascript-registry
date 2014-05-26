@@ -1,0 +1,1 @@
+Bu proje dışarı açılması planlanan js kütüphanlerimiz için ortak bir alan oluşturulması amacıyla açılmıştır. Her plugin için tek tek repository açmak yerine bu yola başvurduk. Private Repo limitizi bununla doldurmak istemedik.
