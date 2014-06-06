@@ -10,34 +10,27 @@
         }
     };
     Handlers.prototype.replace = function(e, $el, data) {
-        $($el.data('replace')).replaceWith(data.html);
+        $($el.data('replace')).replaceWith(data);
     };
     Handlers.prototype.replaceClosest = function(e, $el, data) {
-        $el.closest($el.data('replace-closest')).replaceWith(data.html);
+        $el.closest($el.data('replace-closest')).replaceWith(data);
     };
     Handlers.prototype.replaceInner = function(e, $el, data) {
-        $($el.data('replace-inner')).html(data.html);
+        $($el.data('replace-inner')).html(data);
     };
     Handlers.prototype.replaceClosestInner = function(e, $el, data) {
-        $el.closest($el.data('replace-closest-inner')).html(data.html);
+        $el.closest($el.data('replace-closest-inner')).html(data);
     };
     Handlers.prototype.append = function(e, $el, data) {
         $($el.data('append')).append(data);
     };
     Handlers.prototype.prepend = function(e, $el, data) {
-        $($el.data('prepend')).prepend(data.html);
+        $($el.data('prepend')).prepend(data);
     };
     Handlers.prototype.refresh = function(e, $el) {
         $.each($($el.data('refresh')), function(index, value) {
             $.getJSON($(value).data('refresh-url'), function(data) {
-                $(value).replaceWith(data.html);
-            });
-        });
-    };
-    Handlers.prototype.refreshClosest = function(e, $el) {
-        $.each($($el.data('refresh-closest')), function(index, value) {
-            $.getJSON($(value).data('refresh-url'), function(data) {
-                $el.closest($(value)).replaceWith(data.html);
+                $(value).replaceWith(data);
             });
         });
     };
@@ -46,12 +39,6 @@
     };
     Handlers.prototype.remove = function(e, $el) {
         $($el.data('remove')).remove();
-    };
-    Handlers.prototype.clearClosest = function(e, $el) {
-        $el.closest($el.data('clear-closest')).html('');
-    };
-    Handlers.prototype.removeClosest = function(e, $el) {
-        $el.closest($el.data('remove-closest')).remove();
     };
     Handlers.prototype.fragments = function(e, $el, data) {
         if (data.fragments) {

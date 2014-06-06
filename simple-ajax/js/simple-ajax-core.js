@@ -92,6 +92,6 @@
        var $body = $('body');
        $body.on('click', 'a[data-ajax-click]', Ajax.prototype.click);
        $body.on('click', 'a[data-ajax-submitter]', Ajax.prototype.submitForm);
-       $body.on('submit', 'form[data-ajax-form]', Ajax.prototype.submit);
+       $body.on('submit', 'form[data-ajax-submit]', Ajax.prototype.submit);
     });
 }(window.jQuery));
