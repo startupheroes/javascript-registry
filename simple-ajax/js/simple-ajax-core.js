@@ -21,6 +21,9 @@
                     }
                     $el.trigger('simple-ajax:success', [$el, responseData]);
                 },
+                204: function () {
+                    $el.trigger('simple-ajax:success', [$el, {}]);
+                },
                 500: function () {
                     $el.trigger('simple-ajax:error', [$el, 500]);
                 },
