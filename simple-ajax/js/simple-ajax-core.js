@@ -41,7 +41,6 @@
     };
 
     Ajax.prototype.click = function (e) {
-        console.log("test")
         var $this = $(this),
             url = $this.attr('href'),
             method = $this.data('method'),
