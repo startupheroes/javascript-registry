@@ -75,10 +75,10 @@
 
     Ajax.prototype.submit = function (e) {
         var $this = $(this),
-            url = $this.attr('action'),
+            url = $this.attr('data-one-time-action') || $this.attr('action'),
             method = $this.attr('method'),
             data = $this.serialize();
-
+        $this.removeAttr('data-one-time-action');
         e.preventDefault();
 
         Ajax.prototype._ajax($this, url, method, data);
@@ -86,9 +86,11 @@
 
    Ajax.prototype.submitForm = function (e) {
       var $this = $(this),
-         selector = $this.attr('data-ajax-submit-form');
+         selector = $this.attr('data-ajax-submitter');
       e.preventDefault();
-      $(selector).submit();
+      $(selector)
+         .attr('data-one-time-action', $this.attr('data-ajax-submit-url'))
+         .submit();
    };
 
     $(function () {
