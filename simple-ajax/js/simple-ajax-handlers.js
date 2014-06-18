@@ -40,6 +40,12 @@
     Handlers.prototype.remove = function(e, $el) {
         $($el.data('remove')).remove();
     };
+    Handlers.prototype.clearClosest = function(e, $el) {
+       $el.closest($el.data('clear-closest')).html('');
+    };
+    Handlers.prototype.removeClosest = function(e, $el) {
+       $el.closest($el.data('remove-closest')).remove();
+    };
     Handlers.prototype.fragments = function(e, $el, data) {
         if (data.fragments) {
             $.each(data.fragments, function (i, s) {
@@ -64,13 +70,18 @@
     };
 
     $(function () {
-        $(document).on('simple-ajax:success', Handlers.prototype.redirect);
-        $(document).on('simple-ajax:success', Handlers.prototype.fragments);
-        $(document).on('simple-ajax:success', '[data-replace]', Handlers.prototype.replace);
-        $(document).on('simple-ajax:success', '[data-replace-closest]', Handlers.prototype.replaceClosest);
-        $(document).on('simple-ajax:success', '[data-replace-inner]', Handlers.prototype.replaceInner);
-        $(document).on('simple-ajax:success', '[data-replace-closest-inner]', Handlers.prototype.replaceClosestInner);
-        $(document).on('simple-ajax:success', '[data-append]', Handlers.prototype.append);
-        $(document).on('simple-ajax:success', '[data-prepend]', Handlers.prototype.prepend);
+       var $document = $(document);
+       $document.on('simple-ajax:success', Handlers.prototype.redirect)
+                .on('simple-ajax:success', Handlers.prototype.fragments)
+                .on('simple-ajax:success', '[data-replace]', Handlers.prototype.replace)
+                .on('simple-ajax:success', '[data-delete]', Handlers.prototype.replace)
+                .on('simple-ajax:success', '[data-replace-closest]', Handlers.prototype.replaceClosest)
+                .on('simple-ajax:success', '[data-replace-inner]', Handlers.prototype.replaceInner)
+                .on('simple-ajax:success', '[data-replace-closest-inner]', Handlers.prototype.replaceClosestInner
+                .on('simple-ajax:success', '[data-append]', Handlers.prototype.append)
+                .on('eldarion-ajax:success', '[data-clear]', Handlers.prototype.clear)
+                .on('eldarion-ajax:success', '[data-remove]', Handlers.prototype.remove)
+                .on('eldarion-ajax:success', '[data-clear-closest]', Handlers.prototype.clearClosest)
+                .on('eldarion-ajax:success', '[data-remove-closest]', Handlers.prototype.removeClosest));
     });
 }(window.jQuery));
