@@ -77,11 +77,11 @@
                 .on('simple-ajax:success', '[data-delete]', Handlers.prototype.replace)
                 .on('simple-ajax:success', '[data-replace-closest]', Handlers.prototype.replaceClosest)
                 .on('simple-ajax:success', '[data-replace-inner]', Handlers.prototype.replaceInner)
-                .on('simple-ajax:success', '[data-replace-closest-inner]', Handlers.prototype.replaceClosestInner
+                .on('simple-ajax:success', '[data-replace-closest-inner]', Handlers.prototype.replaceClosestInner)
                 .on('simple-ajax:success', '[data-append]', Handlers.prototype.append)
                 .on('eldarion-ajax:success', '[data-clear]', Handlers.prototype.clear)
                 .on('eldarion-ajax:success', '[data-remove]', Handlers.prototype.remove)
                 .on('eldarion-ajax:success', '[data-clear-closest]', Handlers.prototype.clearClosest)
-                .on('eldarion-ajax:success', '[data-remove-closest]', Handlers.prototype.removeClosest));
+                .on('eldarion-ajax:success', '[data-remove-closest]', Handlers.prototype.removeClosest);
     });
 }(window.jQuery));
