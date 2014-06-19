@@ -46,6 +46,7 @@
             method = $this.data('method'),
             dataType = $this.data('dataType'),
             data_str = $this.data('data'),
+            formData = $($this.data('formData')).serialize() ,
             data = null,
             keyval = null;
 
@@ -67,14 +68,18 @@
             );
         }
 
+        if(formData){
+           data = (data || '') + formData;
+        }
+
         e.preventDefault();
 
-        Ajax.prototype._ajax($this, url, method, data);
+        Ajax.prototype._ajax($this, url, method, data, dataType);
     };
 
     Ajax.prototype.submit = function (e) {
         var $this = $(this),
-            url = $this.attr('data-one-time-action') || $this.attr('action'),
+            url = $this.attr('action'),
             method = $this.attr('method'),
             data = $this.serialize();
         $this.removeAttr('data-one-time-action');
@@ -87,15 +92,13 @@
       var $this = $(this),
          selector = $this.attr('data-ajax-submitter');
       e.preventDefault();
-      $(selector)
-         .attr('data-one-time-action', $this.attr('data-ajax-submit-url'))
-         .submit();
+      $(selector).submit();
    };
 
     $(function () {
-       var $body = $('body');
-       $body.on('click', 'a[data-ajax-click]', Ajax.prototype.click);
-       $body.on('click', 'a[data-ajax-submitter]', Ajax.prototype.submitForm);
-       $body.on('submit', 'form[data-ajax-submit]', Ajax.prototype.submit);
+       $('body')
+          .on('click', 'a[data-ajax-click]', Ajax.prototype.click)
+          .on('click', 'a[data-ajax-submitter]', Ajax.prototype.submitForm)
+          .on('submit', 'form[data-ajax-submit]', Ajax.prototype.submit);
     });
 }(window.jQuery));
