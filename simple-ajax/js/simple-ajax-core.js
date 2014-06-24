@@ -14,6 +14,7 @@
             type: method,
             dataType: dataType,
             data: data,
+            headers: {'X-Simple-Ajax': true},
             statusCode: {
                 200: function (responseData) {
                     if (!responseData) {
@@ -69,7 +70,7 @@
         }
 
         if(formData){
-           data = (data || '') + formData;
+           data = data ? ($.param(data) + '&' + formData) : formData;
         }
 
         e.preventDefault();
@@ -82,7 +83,6 @@
             url = $this.attr('action'),
             method = $this.attr('method'),
             data = $this.serialize();
-        $this.removeAttr('data-one-time-action');
         e.preventDefault();
 
         Ajax.prototype._ajax($this, url, method, data);
