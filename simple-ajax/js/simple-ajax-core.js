@@ -99,6 +99,7 @@
        $('body')
           .on('click', 'a[data-ajax-click]', Ajax.prototype.click)
           .on('click', 'a[data-ajax-submitter]', Ajax.prototype.submitForm)
+          .on('click', 'input[data-ajax-submitter][type="checkbox"]', Ajax.prototype.submitForm)
           .on('submit', 'form[data-ajax-submit]', Ajax.prototype.submit);
     });
 }(window.jQuery));
