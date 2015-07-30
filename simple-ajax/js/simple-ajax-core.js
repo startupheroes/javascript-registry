@@ -22,17 +22,29 @@
                     }
                     $el.trigger('simple-ajax:success', [$el, responseData]);
                 },
-                204: function () {
-                    $el.trigger('simple-ajax:success', [$el, {}]);
+                204: function (responseData) {
+                    if (!responseData) {
+                        responseData = {};
+                    }
+                    $el.trigger('simple-ajax:success', [$el, responseData]);
                 },
-                500: function () {
-                    $el.trigger('simple-ajax:error', [$el, 500]);
+                500: function (responseData) {
+                    if (!responseData) {
+                        responseData = {};
+                    }
+                    $el.trigger('simple-ajax:error', [$el, responseData]);
                 },
-                400: function () {
-                    $el.trigger('simple-ajax:error', [$el, 400]);
+                400: function (responseData) {
+                    if (!responseData) {
+                        responseData = {};
+                    }
+                    $el.trigger('simple-ajax:error', [$el, responseData]);
                 },
-                404: function () {
-                    $el.trigger('simple-ajax:error', [$el, 404]);
+                404: function (responseData) {
+                    if (!responseData) {
+                        responseData = {};
+                    }
+                    $el.trigger('simple-ajax:error', [$el, responseData]);
                 }
             },
             complete: function (jqXHR, textStatus) {
