@@ -5,10 +5,10 @@
 
     Ajax.prototype._ajax = function ($el, url, method, data, dataType) {
         $el.trigger('simple-ajax:begin', [$el]);
-        var newData = $el.triggerHandler('simple-ajax:modify-data', data);
-        if (newData) {
-            data = newData;
-        }
+        // do not bubble up
+        var newData = $el.triggerHandler('simple-ajax:modify-data', [$el, data]);
+        data = newData || data;
+
         $.ajax({
             url: url,
             type: method,
