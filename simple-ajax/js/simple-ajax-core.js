@@ -50,9 +50,9 @@
             complete: function (jqXHR, textStatus) {
                 $(document).trigger('simple-ajax:complete', [$el, jqXHR, textStatus]);
             },
-            beforeSend: function () {
-              if (currentRequest != null) {
-                  currentRequest.abort();
+            beforeSend: function (xhr, opts) {
+              if (xhr != null) {
+                  xhr.abort();
               }
             }
         });
