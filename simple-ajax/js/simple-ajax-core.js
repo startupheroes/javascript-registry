@@ -9,7 +9,7 @@
         var newData = $el.triggerHandler('simple-ajax:modify-data', [$el, data]);
         data = newData || data;
 
-        $.ajax({
+        var currentRequest = $.ajax({
             url: url,
             type: method,
             dataType: dataType,
@@ -49,6 +49,11 @@
             },
             complete: function (jqXHR, textStatus) {
                 $(document).trigger('simple-ajax:complete', [$el, jqXHR, textStatus]);
+            },
+            beforeSend: function () {
+              if (currentRequest != null) {
+                  currentRequest.abort();
+              }
             }
         });
     };
