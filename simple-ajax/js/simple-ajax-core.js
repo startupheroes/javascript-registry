@@ -49,11 +49,6 @@
             },
             complete: function (jqXHR, textStatus) {
                 $(document).trigger('simple-ajax:complete', [$el, jqXHR, textStatus]);
-            },
-            beforeSend: function (xhr, opts) {
-              if (xhr != null) {
-                  xhr.abort();
-              }
             }
         });
     };
