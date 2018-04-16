@@ -117,7 +117,7 @@
 
   $(function () {
     $('body')
-      .on('click', 'a[data-ajax-click]', Ajax.prototype.click)
+      .on('click', '[data-ajax-click]', Ajax.prototype.click)
       .on('click', 'a[data-ajax-submitter]', Ajax.prototype.submitForm)
       .on('click', 'input[data-ajax-submitter][type="checkbox"]', Ajax.prototype.submitForm)
       .on('ifChecked', 'input[data-ajax-submitter][type="radio"]', Ajax.prototype.submitForm)
