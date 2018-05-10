@@ -1,19 +1,20 @@
 (function ($) {
   'use strict';
 
-  var Ajax = function () {};
+  var Ajax = function () {
+  };
 
   var xhr = null;
 
   $.fn.xhrAbort = function () {
-    if (xhr != null) {
+    if (xhr !== null) {
       xhr.abort();
       xhr = null;
     }
   };
 
   $.fn.checkXHR = function () {
-    return xhr != null;
+    return xhr !== null;
   };
 
   Ajax.prototype._ajax = function ($el, url, method, data, dataType) {
@@ -23,49 +24,49 @@
     data = newData || data;
     $.fn.xhrAbort();
     xhr = $.ajax({
-      url: url,
-      type: method,
-      dataType: dataType,
-      data: data,
-      headers: { 'X-Simple-Ajax': true },
-      statusCode: {
-        200: function (responseData) {
-          xhr = null;
-          if (!responseData) {
-            responseData = {};
-          }
-          $el.trigger('simple-ajax:success', [$el, responseData]);
-        }, 204: function (responseData) {
-          xhr = null;
-          if (!responseData) {
-            responseData = {};
-          }
-          $el.trigger('simple-ajax:success', [$el, responseData]);
-        }, 500: function (responseData) {
-          xhr = null;
-          if (!responseData) {
-            responseData = {};
-          }
-          $el.trigger('simple-ajax:error', [$el, responseData]);
-        }, 400: function (responseData) {
-          xhr = null;
-          if (!responseData) {
-            responseData = {};
-          }
-          $el.trigger('simple-ajax:error', [$el, responseData]);
-        }, 404: function (responseData) {
-          xhr = null;
-          if (!responseData) {
-            responseData = {};
-          }
-          $el.trigger('simple-ajax:error', [$el, responseData]);
-        }
-      },
-      complete: function (jqXHR, textStatus) {
-        xhr = null;
-        $(document).trigger('simple-ajax:complete', [$el, jqXHR, textStatus]);
-      }
-    });
+                   url: url,
+                   type: method,
+                   dataType: dataType,
+                   data: data,
+                   headers: { 'X-Simple-Ajax': true },
+                   statusCode: {
+                     200: function (responseData) {
+                       xhr = null;
+                       if (!responseData) {
+                         responseData = {};
+                       }
+                       $el.trigger('simple-ajax:success', [$el, responseData]);
+                     }, 204: function (responseData) {
+                       xhr = null;
+                       if (!responseData) {
+                         responseData = {};
+                       }
+                       $el.trigger('simple-ajax:success', [$el, responseData]);
+                     }, 500: function (responseData) {
+                       xhr = null;
+                       if (!responseData) {
+                         responseData = {};
+                       }
+                       $el.trigger('simple-ajax:error', [$el, responseData]);
+                     }, 400: function (responseData) {
+                       xhr = null;
+                       if (!responseData) {
+                         responseData = {};
+                       }
+                       $el.trigger('simple-ajax:error', [$el, responseData]);
+                     }, 404: function (responseData) {
+                       xhr = null;
+                       if (!responseData) {
+                         responseData = {};
+                       }
+                       $el.trigger('simple-ajax:error', [$el, responseData]);
+                     }
+                   },
+                   complete: function (jqXHR, textStatus) {
+                     xhr = null;
+                     $(document).trigger('simple-ajax:complete', [$el, jqXHR, textStatus]);
+                   }
+                 });
   };
 
   Ajax.prototype.click = function (e) {
@@ -115,12 +116,36 @@
     $(selector).submit();
   };
 
+  Ajax.prototype.timeout = function ($el) {
+    var timeout = $el.data('timeout'),
+      url = $el.data('url'),
+      method = $el.data('method');
+
+    if (!method) {
+      method = 'get';
+    }
+
+    var id = window.setTimeout(Ajax.prototype._ajax, timeout, $el, url, method, null);
+    $el.data('timeout-id', id);
+  };
+
+  Ajax.prototype.destroy = function () {
+    var $body = $('body');
+    if ($body.attr('data-timeout')) {
+      window.clearTimeout($body.data('timeout-id'));
+    }
+  };
+
   $(function () {
-    $('body')
+    var $body = $('body');
+    $body
       .on('click', '[data-ajax-click]', Ajax.prototype.click)
       .on('click', 'a[data-ajax-submitter]', Ajax.prototype.submitForm)
       .on('click', 'input[data-ajax-submitter][type="checkbox"]', Ajax.prototype.submitForm)
       .on('ifChecked', 'input[data-ajax-submitter][type="radio"]', Ajax.prototype.submitForm)
       .on('submit', 'form[data-ajax-submit]', Ajax.prototype.submit);
+    if ($body.attr('data-timeout')) {
+      Ajax.prototype.timeout($body);
+    }
   });
 }(window.jQuery));
